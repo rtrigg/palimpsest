@@ -4,12 +4,12 @@ from palimpsest import read_character_sketch, validate_character_sketch
 
 
 def test_read_character_sketch():
-    char_data = read_character_sketch("data/example_character.yaml")
+    char_data = read_character_sketch("tests/data/example_character.yaml")
     assert isinstance(char_data, dict)
 
 
 def test_read_character_sketch_content():
-    char_data = read_character_sketch("data/example_character.yaml")
+    char_data = read_character_sketch("tests/data/example_character.yaml")
     assert char_data["name"] == "Jane Doert"
     assert char_data["age"] == 39
     assert "Intelligent" in char_data["traits"]
