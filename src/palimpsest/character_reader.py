@@ -1,6 +1,6 @@
 import yaml
 
-REQUIRED_FIELDS = ["name", "age", "occupation"]
+REQUIRED_FIELDS = ["name", "age", "occupation", "favorite_food"]
 
 
 def validate_character_sketch(character_data):
