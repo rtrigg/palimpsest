@@ -1,0 +1,27 @@
+name: Check Code of Conduct Updates
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Run every Sunday at midnight
+
+jobs:
+  check-updates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check for updates
+        run: |
+          curl -o latest-coc.md https://raw.githubusercontent.com/EthicalSource/contributor_covenant/release/CODE_OF_CONDUCT.md
+          if ! cmp -s latest-coc.md CODE_OF_CONDUCT.md; then
+            cp latest-coc.md CODE_OF_CONDUCT.md
+            git config user.name "GitHub Action"
+            git config user.email "action@github.com"
+            git checkout -b coc-update
+            git add CODE_OF_CONDUCT.md
+            git commit -m "update code of conduct to latest version"
+            git push origin coc-update
+            gh pr create --title "update code of conduct" --body "This updates the Code of Conduct to the latest version."
+          fi
+
